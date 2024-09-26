@@ -16,8 +16,7 @@ if ($conn->connect_errno) {
     <title>MySQL First Contact</title>
 </head>
 <body>
-</table>
-    <h3>
+    <h3>1.
     แสดงข้อมูลชื่อสินค้า (ProductName)
     และราคาต่อหน่วย (UnitPrice) ของสินค้าที่มีราคามากกว่า 50 บาท จากนั้นจัดเรียงตามราคาจากสูงไปต่ำ</h3>
     <table>
@@ -25,7 +24,7 @@ if ($conn->connect_errno) {
             <th>CategoryID</th>
             <th>CategoryName</th>
         </tr>  
-        <?php
+<?php
         $sql = 'select ProductName, UnitPrice
                 from products
                 where UnitPrice > 50
@@ -39,18 +38,6 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
         </table>
-<?php
-$sql = "SELECT * FROM categories";
-$result = $conn->query($sql);
-while ($row = $result->fetch_assoc()) {
-    echo '<tr>';
-    echo "<td>{$row['CategoryID']}</td>";
-    echo "<td>{$row['CategoryName']}</td>";
-    echo '</tr>';
-}
-echo '</table>';
-?>
-    </table>
 <?php
 $conn->close();
 ?>
