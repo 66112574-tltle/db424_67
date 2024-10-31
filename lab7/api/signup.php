@@ -1,7 +1,7 @@
 <?php
-require 'dp.php';
+require '../dp.php';
 
-if (isset($_POST['signup'])) {
+// if (isset($_POST['signup'])) {
     $username = $_POST['username'];
     $password = password_hash(
         $_POST['password'],
@@ -23,13 +23,18 @@ if (isset($_POST['signup'])) {
             $stmt = $conn->prepare($sql);
             $stmt->bind_param("ss", $username, $password);
             $stmt->execute();
-            echo 'Success';
+            http_response_code(201);
+            echo json_encode(['message'=>'Success']);
+            // echo 'Success';
         } 
         else {
-            echo 'Student ID not found. ';
+            http_response_code(400);
+            echo json_encode(['message'=>'Student ID not found. ']);
+            // echo 'Student ID not found. ';
         }
     } catch (Exception $e) {
-        echo $e->getMessage();
+        http_response_code(500);
+        echo json_encode (['message'=>'server error.']);
+        // echo $e->getMessage();
     }
-}
 ?>
