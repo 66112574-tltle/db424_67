@@ -1,19 +1,18 @@
 <?php
 include 'header.php';
 require 'db.php';
-$sql = "select * from  student S
-        join major M on S.majorID=M.majorID
-        where studentID='{$_SESSION['user']['studentID']}'";
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
+$sql = "select * from student 
+        where studentID = '{$_SESSION['user']['studentID']}'";
+$result = $conn->query($sql);
+$student = $result->fetch_assoc(); 
 ?>
-<form action="saveProfile.php" method="post" enctype="multipart/form-data">
+ <form action="saveProfile.php" method="post" enctype="multipart/form-data">
    <div class="row">
      <div class="col-md-4 border-right">
        <div class="d-flex flex-column align-items-center text-center p-3 py-5">
          <label for="profile-image" class="mb-3">
            <div id="image">
-             <img src="images/profiles/<?php echo $student['image']; ?>" alt="profile image">
+             <img class="img-fluid" src="images/profiles/<?php echo $student['Images'];?>" alt="profile image">
            </div>
            <input class="form-control d-none" type="file" accept="image/*" name="image" id="profile-image" onchange="preview()">
          </label>
@@ -31,9 +30,14 @@ $sql = "select * from  student S
              value="<?php echo $student['studentID'];?>" disabled>
            </div>
            <div class="mb-2">
-             <label for="student-name" class="form-label">Student Name</label>
-             <input required name="studentName" type="text" class="form-control" id="student-name"
-             value="<?php echo $student['studentName'];?>">
+             <label for="first-name" class="form-label">First Name</label>
+             <input required name="firstName" type="text" class="form-control" id="first-name"
+             value="<?php echo $student['firstName'];?>">
+           </div>
+           <div class="mb-2">
+             <label for="last-name" class="form-label">Last Name</label>
+             <input required name="lastName" type="text" class="form-control" id="last-name"
+             value="<?php echo $student['lastName'];?>">
            </div>
            <div class="mb-2">
              <label for="major" class="form-label">Major</label>
@@ -58,6 +62,8 @@ $conn->close();
      </div>
    </div>
  </form>
+
+
 <?php
 include 'footer.php';
 ?>
